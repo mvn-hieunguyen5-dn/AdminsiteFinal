@@ -11,6 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 @import '~antd/dist/antd.css';
 @tailwind base;
 @tailwind components;
@@ -20,6 +21,7 @@ code {
   span {
     @apply text-black;
   }
+
   p {
     @apply font-normal;
   }
@@ -39,9 +41,13 @@ code {
   h4 {
     @apply text-xl;
   }
-  
-  .center_a_div{
+
+  .center_a_div {
     @apply flex items-center justify-center;
+  }
+
+  blockquote {
+    @apply p-2 bg-zinc-100 font-semibold text-lg text-slate-600 border-l-8 border-zinc-500 my-1;
   }
 
   /* ... */
