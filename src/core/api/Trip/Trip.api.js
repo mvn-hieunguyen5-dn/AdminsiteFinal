@@ -1,5 +1,10 @@
 import { api } from "../api";
 
-export const apiGetTrip = () => {
+const apiGetTrip = () => {
   return api.get("/trip");
 };
+const apiPostTrip = (data) => {
+  return api.post("/trip", data);
+};
+
+export { apiGetTrip, apiPostTrip };

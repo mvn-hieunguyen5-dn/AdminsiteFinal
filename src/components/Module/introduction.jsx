@@ -22,6 +22,10 @@ export default function introduction() {
             <td>v18</td>
           </tr>
           <tr>
+            <td>Router</td>
+            <td>v6</td>
+          </tr>
+          <tr>
             <td>Material</td>
             <td>Antd</td>
           </tr>
@@ -29,10 +33,10 @@ export default function introduction() {
             <td>CSS</td>
             <td>Tailwind CSS</td>
           </tr>
-          <tr>
-            <td>Router</td>
-            <td>v6</td>
-          </tr>
+         <tr>
+           <td>API</td>
+           <td>Axios</td>
+         </tr>
           <tr>
             <td>File</td>
             <td>Firebase</td>
@@ -40,7 +44,7 @@ export default function introduction() {
         </tbody>
       </table>
       <h2>Color board</h2>
-      <div className="flex items-center gap-10 font-semibold text-white flex-wrap">
+      <div className="flex items-center text-center gap-10 font-semibold text-white flex-wrap">
         <div className="center_a_div h-40 w-40 bg-amber-500 rounded-xl shadow-xl">
           Hight light <br></br>
           #bg-amber-500

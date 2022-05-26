@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Storge from "../../../core/FireStorage/FireBaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Progress } from "antd";
-export default function UploadImgForm() {
+export default function UploadImgForm(props) {
   // const [file, getFile] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -34,20 +34,16 @@ export default function UploadImgForm() {
         alert("Upload Fail");
       },
       () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           setImgUrl(downloadURL);
+          props.setImg(downloadURL);
         });
       }
     );
   };
 
   const handleChange = (val) => {
-    // getFile();
-    // getFile(val.target.files[0]);
-    // console.log(file);
     updateToUpload(val.target.files[0]);
   };
   return (
