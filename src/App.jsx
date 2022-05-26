@@ -5,6 +5,8 @@ import Home from "./page/homepage";
 import Auth from "./page/auth";
 import useAuth from "./hooks/useAuth";
 import NotFound from "./page/404";
+
+
 export default function App() {
   const { isLogged } = useAuth();
   // alert(isLogged);

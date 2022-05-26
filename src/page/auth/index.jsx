@@ -8,7 +8,6 @@ export default function Index() {
     <Routes>
       <Route path="/" element={<UserLogin />} />
       <Route path="/register" element={<UserRegister />} />
-      
     </Routes>
   );
 }
