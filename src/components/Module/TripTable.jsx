@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Space, message } from "antd";
 import { Popconfirm } from "antd";
 import { apiDeleteTripById } from "../../core/api/Trip/Trip.api";
 import { Link } from "react-router-dom";
-export default function TripTable({ data, deleteItem }) {
+import {apiGetTrip} from "../../core/api/Trip/Trip.api"
+export default function TripTable() {
+  const [TripData, setTripData] = useState([]);
+  useEffect(() => {
+    async function fetchMyAPI() {
+      let response = await apiGetTrip();
+      setTripData(response.data);
+    }
+
+    fetchMyAPI();
+  }, []);
+  const deleteItem = (id) => {
+    setTripData(TripData.filter((item) => item.id !== id));
+  };
   const text = "Are you sure ?";
   const confirm = async (id) => {
     message.loading("Deleteing id:" + id);
@@ -38,7 +51,7 @@ export default function TripTable({ data, deleteItem }) {
       title: "Customer name",
       dataIndex: "customer_name",
       key: "customer_name",
-      responsive: ["sm"]
+      responsive: ["sm"],
     },
     {
       title: "Create date",
@@ -52,7 +65,7 @@ export default function TripTable({ data, deleteItem }) {
       title: "Destination",
       dataIndex: "end_location",
       key: "end_location",
-      responsive: ["md"]
+      responsive: ["md"],
     },
     {
       title: "Start date",
@@ -60,7 +73,7 @@ export default function TripTable({ data, deleteItem }) {
       render: (_, record) => (
         <p> {new Date(record.start_date).toLocaleString()}</p>
       ),
-      responsive: ["md"]
+      responsive: ["md"],
     },
     {
       title: "Image",
@@ -79,7 +92,7 @@ export default function TripTable({ data, deleteItem }) {
           )}
         </div>
       ),
-      responsive: ["xl"]
+      responsive: ["xl"],
     },
     {
       title: "Action",
@@ -108,7 +121,11 @@ export default function TripTable({ data, deleteItem }) {
   ];
   return (
     <div className="mt-5 z-20">
-      <Table dataSource={data} columns={columns} rowKey="id" />;
+      <Table dataSource={TripData} columns={columns} rowKey="id" />;
+      <blockquote>
+        Quản lý của một công ty tổ chuwcsl lữ hành, xác định phòng ban và người
+        chịu trách nghiệm tổ chức kiêm luôn phân chia loại dịch vụ cung cấp
+      </blockquote>
     </div>
   );
 }

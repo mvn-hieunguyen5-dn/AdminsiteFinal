@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { turnOffWarn } from "../../../store/unSaveClice";
 import {
   HomeFilled,
   CalendarFilled,
   SettingFilled,
   DoubleLeftOutlined,
   PlusSquareFilled,
+  CloseCircleOutlined,
 } from "@ant-design/icons";
 export default function RightNavBar(props) {
+  const isAlert = useSelector((state) => state.unSave.isWarn);
+  const dispatch = useDispatch();
   const [isHide, setHide] = useState(false);
   const activeStyle =
     "text-amber-500 font-bold p-2  flex items-center gap-2 group xl:w-full";
@@ -45,12 +50,12 @@ export default function RightNavBar(props) {
   return (
     <div className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation w-fit  ">
       <div className=" h-full  flex xl:flex-col flex-row p-1 xl:p-4">
-        <div>
+        <div className="center_a_div">
           <button
             onClick={() => {
               setHide(!isHide);
             }}
-            className={" hidden xl:center_a_div BlackButton"}
+            className={" group text-xl hidden xl:center_a_div BlackButton"}
           >
             <div
               className={
@@ -59,7 +64,13 @@ export default function RightNavBar(props) {
             >
               <DoubleLeftOutlined />
             </div>{" "}
-            {isHide ? "Extend" : "Hide"}
+            <span
+              className={
+                isHide ? "sidebar-tooltip group-hover:scale-100 " : " hidden"
+              }
+            >
+              {isHide ? "Extend" : "Hide"}
+            </span>
           </button>
         </div>
         <div className="text-base text-left xl:mt-10 flex xl:flex-row ">
@@ -113,14 +124,26 @@ export default function RightNavBar(props) {
             />
             <span
               className={
-                "sidebar-tooltip group-hover:scale-100 bg-red-500 "
+                isAlert
+                  ? "sidebar-tooltip group-hover:scale-100 bg-red-500 center_a_div "
+                  : " hidden "
               }
             >
               You have unsave progress
             </span>
-            <div className="h-5 w-5 absolute  -top-1 -right-1 z-50 ">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-5 w-5 bg-red-500"></span>
+            <div
+              className={
+                "h-5 w-5 absolute  -top-1 -right-1 z-50 group " +
+                (isAlert ? "" : "hidden")
+              }
+            >
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+              <span
+                className="relative inline-flex rounded-full h-5 w-5 bg-red-500 center_a_div text-red-400 group-hover:text-white "
+                onClick={() => dispatch(turnOffWarn())}
+              >
+                <CloseCircleOutlined />
+              </span>
             </div>
           </div>
 
@@ -132,7 +155,7 @@ export default function RightNavBar(props) {
                 : " scale-100 hidden  xl:flex flex-col text-left pr-10 ")
             }
           >
-            <h2 className="text-white">Username</h2>
+            <h2 className="text-white">Hello there</h2>
             <span className="text-white">Admin</span>
             <button className="w-fit py-0.5 shadow-2xl shadow-black ">
               Logout

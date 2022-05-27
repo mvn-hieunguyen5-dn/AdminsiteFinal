@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUnSaveForm, turnOnWarn, turnOffWarn } from "../../../store/unSaveClice";
 import UploadImgForm from "../../../components/Module/Form/UploadImgForm";
+import { useNavigate } from 'react-router-dom';
 import {
   apiPostTrip,
   apiGetTripById,
@@ -14,69 +17,88 @@ import {
   Form,
   Input,
   Select,
-  Switch,
   message,
 } from "antd";
 // import { async } from "@firebase/util";
 export default function AddTrip() {
+  const isAlert = useSelector((state) => state.unSave.isWarn);
+  const unsaveData= useSelector((state) => state.unSave.value);
   const [form] = Form.useForm();
   const { id } = useParams();
   const [image, setImg] = useState("");
   const [isLoad, setLoad] = useState(false);
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
   const [formData, setFormData] = useState({
     createdAt: "",
     name: "",
     start_location: "",
     end_location: "",
-    range_time: [0, 0],
-    EM_name: ["", ""],
+    range_time: null,
+    EM_name: null,
     customer_name: "",
     customer_social_id: "",
   });
-  const [Data, setData] = useState({
-    createdAt: new Date(),
-    name: "",
-    start_location: "",
-    end_location: "",
-    start_date: null,
-    end_date: null,
-    EM_name: "",
-    customer_name: "",
-    customer_social_id: 0,
-    image: "",
-    Department: "",
-  });
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
       if (id) {
         message.info("Id detective");
-        let res = await apiGetTripById(id);
-        // console.log(res);
-        setData(res.data[0]);
+        const res = await apiGetTripById(id);
+        console.log(res);
+        setFormData({
+          createdAt: res.data[0].date,
+          name: res.data[0].name,
+          start_location: res.data[0].start_location,
+          end_location: res.data[0].end_location,
+          range_time: [
+            moment(res.data[0].start_date),
+            moment(res.data[0].end_date),
+          ],
+          EM_name: [res.data[0].Department, res.data[0].EM_name],
+          customer_name: res.data[0].customer_name,
+          customer_social_id: res.data[0].customer_social_id,
+        });
+        setImg(res.data[0].image);
+        
+      } else {
+        resetFormData();
+        setImg("");
       }
-    }
+    };
     getData();
-  }, []);
-  useEffect(() => {
-    setFormData({
-      createdAt: Data.date,
-      name: Data.name,
-      start_location: Data.start_location,
-      end_location: Data.end_location,
-      range_time: [moment(Data.start_date), moment(Data.end_date)],
-      EM_name: [Data.Department, Data.EM_name],
-      customer_name: Data.customer_name,
-      customer_social_id: Data.customer_social_id,
-    });
-    setImg(Data.image);
-    form.resetFields();
-  }, [Data]);
+  }, [id, form]);
 
-  const onFormLayoutChange = (items) => {
+  useEffect(() => {
+    form.resetFields();
+    return() => {
+      dispatch(turnOnWarn());
+    }
+  }, [formData, form]);
+  const onValuesChange = (items, allitem) => {
+    dispatch(updateUnSaveForm(allitem));
+  };
+  const fillUnsaveData = () =>{
+    console.log(unsaveData);
+    setFormData(unsaveData);
+    deleteUnsaveData();
+  }
+  const deleteUnsaveData = () =>{
+    dispatch(turnOffWarn());
+  }
+  const resetFormData = () => {
+    setFormData({
+      createdAt: "",
+      name: "",
+      start_location: "",
+      end_location: "",
+      range_time: null,
+      EM_name:null,
+      customer_name: "",
+      customer_social_id: "",
+    });
   };
   const onFinish = async (values) => {
     setLoad(true);
-    console.log(values);
     let res = null;
     if (!id) {
       res = await apiPostTrip({
@@ -93,27 +115,33 @@ export default function AddTrip() {
         Department: values.EM_name[0],
       });
     } else {
-      res = await apiEditTripById({
-        createdAt: new Date(),
-        name: values.name,
-        start_location: values.start_location,
-        end_location: values.end_location,
-        start_date: values.range_time[0],
-        end_date: values.range_time[1],
-        EM_name: values.EM_name[1],
-        customer_name: values.customer_name,
-        customer_social_id: values.customer_social_id,
-        image: image,
-        Department: values.EM_name[0],
-      },id);
+      res = await apiEditTripById(
+        {
+          createdAt: new Date(),
+          name: values.name,
+          start_location: values.start_location,
+          end_location: values.end_location,
+          start_date: values.range_time[0],
+          end_date: values.range_time[1],
+          EM_name: values.EM_name[1],
+          customer_name: values.customer_name,
+          customer_social_id: values.customer_social_id,
+          image: image,
+          Department: values.EM_name[0],
+        },
+        id
+      );
     }
-    
+
     setLoad(false);
     if (res.status === 200) {
       message.success(res.statusText, 2.5);
+      navigate(-1);
     } else {
       message.error("Create fail, something went wrong");
     }
+    resetFormData();
+    dispatch(updateUnSaveForm(undefined));
   };
   const { RangePicker } = DatePicker;
   const rangeConfig = {
@@ -121,7 +149,16 @@ export default function AddTrip() {
   };
   return (
     <div className="overflow-x-auto xl:px-50 2xl:px-96">
-      {id ? <blockquote>Edit item id: {id}</blockquote> : ""}
+      <blockquote>{id ? " Edit item id:" + id : "Create new Tip"}</blockquote>
+      {isAlert ? (
+        <blockquote className="bg-red-100 ">
+          You have a unsave work{" "}
+          <span className="func_a text-emerald-600" onClick={fillUnsaveData}>Restore</span>{" "} or 
+          <span className="func_a text-red-500" onClick={deleteUnsaveData}> Leave it</span>
+        </blockquote>
+      ) : (
+        ""
+      )}
       <Form
         form={form}
         labelCol={{
@@ -132,8 +169,8 @@ export default function AddTrip() {
         }}
         layout="horizontal"
         initialValues={formData}
-        onFinish={(val)=>onFinish(val)}
-        onValuesChange={onFormLayoutChange}
+        onFinish={(val) => onFinish(val)}
+        onValuesChange={onValuesChange}
         size="Large"
         responsive="sm"
       >

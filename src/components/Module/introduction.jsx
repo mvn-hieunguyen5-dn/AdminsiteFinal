@@ -26,6 +26,10 @@ export default function introduction() {
             <td>v6</td>
           </tr>
           <tr>
+            <td>Redux</td>
+            <td>Toolkit</td>
+          </tr>
+          <tr>
             <td>Material</td>
             <td>Antd</td>
           </tr>
@@ -66,6 +70,7 @@ export default function introduction() {
           #bg-slate-500
         </div>
       </div>
+      <blockquote>Block quote</blockquote>
     </div>
   );
 }

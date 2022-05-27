@@ -3,9 +3,12 @@ import { Form, Input, Button, Checkbox } from "antd";
 import useAuth from "../../hooks/useAuth";
 export default function LoginForm() {
   const { login } = useAuth();
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Success:", values);
-    login(values.username, values.password);
+    if (values.username === "admin" && values.password === "admin") {
+      await login(values.username, values.password);
+      window.location.reload();
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
