@@ -4,7 +4,6 @@ import "./App.css";
 import Home from "./page/homepage";
 import Auth from "./page/auth";
 import useAuth from "./hooks/useAuth";
-import NotFound from "./page/404";
 import { Provider } from "react-redux";
 import store from "./store";
 
