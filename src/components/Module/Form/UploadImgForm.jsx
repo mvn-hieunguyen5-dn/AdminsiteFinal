@@ -4,8 +4,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Progress } from "antd";
 export default function UploadImgForm(props) {
   // const [file, getFile] = useState(null);
-  const [imgUrl, setImgUrl] = useState(null);
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(props.img);
 
   // Create a reference to 'images/mountains.jpg'
 
@@ -36,7 +35,6 @@ export default function UploadImgForm(props) {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
-          setImgUrl(downloadURL);
           props.setImg(downloadURL);
         });
       }
@@ -58,10 +56,8 @@ export default function UploadImgForm(props) {
       />
       {/* <button onClick={updateToUpload}></button> */}
 
-      {progress === 100 ? (
-        <img src={imgUrl} alt="" className="h-72 w-full object-cover" />
-      ) : (
-        <Progress
+      {props.img ?   <img src={props.img} alt="" className="h-72 w-full object-cover" /> :'' }
+       <Progress
           strokeColor={{
             from: "#108ee9",
             to: "#87d068",
@@ -69,7 +65,6 @@ export default function UploadImgForm(props) {
           percent={progress}
           status="active"
         />
-      )}
     </div>
   );
 }

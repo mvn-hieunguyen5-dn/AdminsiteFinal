@@ -59,10 +59,16 @@ code {
   }
 
   .sidebar-tooltip {
-    @apply absolute w-auto p-2 m-2 min-w-max left-28 rounded-md shadow-2xl text-white bg-slate-800 opacity-90 text-base font-bold transition-all duration-100 scale-0 origin-left z-50;
+    @apply absolute w-auto p-2 m-2 min-w-max xl:left-28 rounded-md shadow-2xl
+     text-white bg-slate-800 opacity-95 text-base font-bold transition-all duration-100 scale-0 origin-left z-50
+     xl:top-1 -top-10  left-11  group-hover:-rotate-90 md:group-hover:-rotate-45 xl:group-hover:rotate-0 rotate-0
+     ;
   }
   .table-picture {
     @apply  absolute top-0 rounded-md shadow-2xl text-white bg-slate-800 font-bold transition-all duration-100 w-fit h-full;
+  }
+  .animation {
+    @apply transition-all duration-300 ease-linear;
   }
 
   /* ... */

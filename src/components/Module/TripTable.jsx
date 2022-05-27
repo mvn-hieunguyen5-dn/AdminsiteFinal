@@ -1,11 +1,23 @@
 import React from "react";
 import { Table, Space, message } from "antd";
 import { Popconfirm } from "antd";
-
-export default function TripTable({ data }) {
+import { apiDeleteTripById } from "../../core/api/Trip/Trip.api";
+import { Link } from "react-router-dom";
+export default function TripTable({ data, deleteItem }) {
   const text = "Are you sure ?";
-  const confirm = (id) => {
-    message.info("Clicked on Yes." + id);
+  const confirm = async (id) => {
+    message.loading("Deleteing id:" + id);
+    const res = await apiDeleteTripById(id).catch((msg) => {
+      return msg;
+    });
+    console.log(res);
+    if (res.request.status !== 200) {
+      message.error(res.response.statusText);
+    } else {
+      message.success("Delete successfull");
+      deleteItem(id);
+    }
+    console.log(res);
   };
   const columns = [
     {
@@ -26,16 +38,21 @@ export default function TripTable({ data }) {
       title: "Customer name",
       dataIndex: "customer_name",
       key: "customer_name",
+      responsive: ["sm"]
     },
     {
       title: "Create date",
-      dataIndex: "createdAt",
       key: "createdAt",
+      responsive: ["sm"],
+      render: (_, record) => (
+        <p> {new Date(record.createdAt).toLocaleDateString()}</p>
+      ),
     },
     {
       title: "Destination",
       dataIndex: "end_location",
       key: "end_location",
+      responsive: ["md"]
     },
     {
       title: "Start date",
@@ -43,6 +60,7 @@ export default function TripTable({ data }) {
       render: (_, record) => (
         <p> {new Date(record.start_date).toLocaleString()}</p>
       ),
+      responsive: ["md"]
     },
     {
       title: "Image",
@@ -61,6 +79,7 @@ export default function TripTable({ data }) {
           )}
         </div>
       ),
+      responsive: ["xl"]
     },
     {
       title: "Action",
@@ -68,7 +87,12 @@ export default function TripTable({ data }) {
       render: (_, record) => (
         <Space size="middle">
           <p className="text-green-600 func_a">Detail</p>
-          <p className="text-yellow-600 func_a">Edit</p>
+          <Link
+            to={"/trip/addTrip/" + record.id}
+            className="text-yellow-600 func_a"
+          >
+            Edit
+          </Link>
           <Popconfirm
             placement="topLeft"
             title={text}

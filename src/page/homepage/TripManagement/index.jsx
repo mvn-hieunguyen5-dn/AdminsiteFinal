@@ -10,14 +10,14 @@ export default function Index() {
   useEffect(() => {
     async function fetchMyAPI() {
       let response = await apiGetTrip();
-
       setTripData(response.data);
-      console.table(response.data);
     }
 
     fetchMyAPI();
   }, []);
-
+  const deleteItem = (id) => {
+    setTripData(TripData.filter((item) => item.id !== id));
+  };
   return (
     <div className="text-left">
       <Link to="/trip">
@@ -36,8 +36,12 @@ export default function Index() {
         </NavLink>
       </nav>
       <Routes>
-        <Route path="/" element={<TripTable data={TripData} />} />
+        <Route
+          path="/"
+          element={<TripTable data={TripData} deleteItem={deleteItem} />}
+        />
         <Route path="/addTrip" element={<AddTrip />} />
+        <Route path="/addTrip/:id" element={<AddTrip />} />
       </Routes>
     </div>
   );
