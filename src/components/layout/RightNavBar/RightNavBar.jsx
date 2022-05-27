@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { turnOffWarn } from "../../../store/unSaveClice";
+import useAuth from "../../../hooks/useAuth";
 import {
   HomeFilled,
   CalendarFilled,
@@ -11,6 +12,7 @@ import {
   CloseCircleOutlined,
 } from "@ant-design/icons";
 export default function RightNavBar(props) {
+  const { logout } = useAuth();
   const isAlert = useSelector((state) => state.unSave.isWarn);
   const dispatch = useDispatch();
   const [isHide, setHide] = useState(false);
@@ -157,7 +159,7 @@ export default function RightNavBar(props) {
           >
             <h2 className="text-white">Hello there</h2>
             <span className="text-white">Admin</span>
-            <button className="w-fit py-0.5 shadow-2xl shadow-black ">
+            <button className="w-fit py-0.5 shadow-2xl shadow-black " onClick={logout}>
               Logout
             </button>
           </div>

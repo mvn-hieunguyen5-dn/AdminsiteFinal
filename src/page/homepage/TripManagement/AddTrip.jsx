@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUnSaveForm, turnOnWarn, turnOffWarn } from "../../../store/unSaveClice";
+import {
+  updateUnSaveForm,
+  turnOnWarn,
+  turnOffWarn,
+} from "../../../store/unSaveClice";
 import UploadImgForm from "../../../components/Module/Form/UploadImgForm";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import {
   apiPostTrip,
   apiGetTripById,
@@ -22,7 +26,7 @@ import {
 // import { async } from "@firebase/util";
 export default function AddTrip() {
   const isAlert = useSelector((state) => state.unSave.isWarn);
-  const unsaveData= useSelector((state) => state.unSave.value);
+  const unsaveData = useSelector((state) => state.unSave.value);
   const [form] = Form.useForm();
   const { id } = useParams();
   const [image, setImg] = useState("");
@@ -59,7 +63,6 @@ export default function AddTrip() {
           customer_social_id: res.data[0].customer_social_id,
         });
         setImg(res.data[0].image);
-        
       } else {
         resetFormData();
         setImg("");
@@ -70,21 +73,22 @@ export default function AddTrip() {
 
   useEffect(() => {
     form.resetFields();
-    return() => {
-      dispatch(turnOnWarn());
-    }
-  }, [formData, form]);
+    return () => {
+      if (!id) dispatch(turnOnWarn());
+    };
+  }, [formData, form, dispatch,id]);
   const onValuesChange = (items, allitem) => {
-    dispatch(updateUnSaveForm(allitem));
+    if (id) dispatch(updateUnSaveForm({ ...allitem, id: id }));
+    else dispatch(updateUnSaveForm(allitem));
   };
-  const fillUnsaveData = () =>{
+  const fillUnsaveData = () => {
     console.log(unsaveData);
     setFormData(unsaveData);
     deleteUnsaveData();
-  }
-  const deleteUnsaveData = () =>{
+  };
+  const deleteUnsaveData = () => {
     dispatch(turnOffWarn());
-  }
+  };
   const resetFormData = () => {
     setFormData({
       createdAt: "",
@@ -92,7 +96,7 @@ export default function AddTrip() {
       start_location: "",
       end_location: "",
       range_time: null,
-      EM_name:null,
+      EM_name: null,
       customer_name: "",
       customer_social_id: "",
     });
@@ -149,12 +153,19 @@ export default function AddTrip() {
   };
   return (
     <div className="overflow-x-auto xl:px-50 2xl:px-96">
+      <button onClick={() => navigate("/trip/addTrip/11")}>Test</button>
       <blockquote>{id ? " Edit item id:" + id : "Create new Tip"}</blockquote>
       {isAlert ? (
         <blockquote className="bg-red-100 ">
           You have a unsave work{" "}
-          <span className="func_a text-emerald-600" onClick={fillUnsaveData}>Restore</span>{" "} or 
-          <span className="func_a text-red-500" onClick={deleteUnsaveData}> Leave it</span>
+          <span className="func_a text-emerald-600" onClick={fillUnsaveData}>
+            Restore
+          </span>{" "}
+          or
+          <span className="func_a text-red-500" onClick={deleteUnsaveData}>
+            {" "}
+            Leave it
+          </span>
         </blockquote>
       ) : (
         ""

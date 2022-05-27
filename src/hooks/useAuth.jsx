@@ -20,7 +20,7 @@ export default function useAuth() {
   const logout = () => {
     localStorage.removeItem('user');
     setIsLogged(false);
-    // history.push('/');
+    window.location.reload();
   };
 
   return { isLogged, login, logout, user };

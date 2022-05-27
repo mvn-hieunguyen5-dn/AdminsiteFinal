@@ -19,8 +19,8 @@ export default function App() {
             <Route path="*" element={<Home />} />
           ) : (
             <>
-              <Route path="/" element={<Auth />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="*" element={<Auth />} />
+              {/* <Route path="*" element={<NotFound />} /> */}
             </>
           )}
         </Routes>

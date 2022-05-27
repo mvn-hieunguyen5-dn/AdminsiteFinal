@@ -65,7 +65,7 @@ export default function introduction() {
           Font black <br></br>
           #text-black"
         </div>
-        <div className="center_a_div h-40 w-40 bg-gray-800 rounded-xl text-white shadow-xl hover:shadow-gray-400  hover:scale-110 animation">
+        <div className="center_a_div h-40 w-40 bg-slate-800 rounded-xl text-white shadow-xl hover:shadow-gray-400  hover:scale-110 animation">
           Background strong <br></br>
           #bg-slate-500
         </div>

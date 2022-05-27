@@ -6,8 +6,10 @@ import UserRegister from "./UserRegister";
 export default function Index() {
   return (
     <Routes>
-      <Route path="/" element={<UserLogin />} />
+      {/* <Route path="/" element={<UserLogin />} /> */}
       <Route path="/register" element={<UserRegister />} />
+      <Route path="*" element={<UserLogin />} />
+
     </Routes>
   );
 }
