@@ -70,7 +70,7 @@ export default function introduction() {
           #bg-slate-500
         </div>
       </div>
-      <blockquote>Block quote</blockquote>
+      <blockquote>Username and password: admin</blockquote>
     </div>
   );
 }
