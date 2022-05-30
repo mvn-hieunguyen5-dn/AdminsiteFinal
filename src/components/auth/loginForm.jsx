@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import useAuth from "../../hooks/useAuth";
 export default function LoginForm() {
   const { login } = useAuth();
+  const [msg, setMSG] = useState("");
   const onFinish = async (values) => {
     console.log("Success:", values);
     if (values.username === "admin" && values.password === "admin") {
       await login(values.username, values.password);
       window.location.reload();
+      setMSG("Account is verified, good to see again")
+    } else {
+      setMSG("Wrong username or password !!");
     }
   };
 
@@ -16,7 +20,7 @@ export default function LoginForm() {
   };
   return (
     <>
-      <h1 className="my-5">Login</h1>
+      <h1 className="my-5">Wellcome back </h1>
       <Form
         name="basic"
         labelCol={{ span: 6 }}
@@ -42,7 +46,9 @@ export default function LoginForm() {
         >
           <Input.Password />
         </Form.Item>
-
+        <Form.Item label="">
+          <span className="text-red-500 text-right">{msg}</span>
+        </Form.Item>
         <Form.Item
           name="remember"
           valuePropName="checked"

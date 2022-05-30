@@ -22,7 +22,7 @@ export default function DetailsTrip({ data }) {
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-slate-500 text-white">
+          <tr className="bg-slate-600 text-white">
             <td className="px-4 py-0.5">Customer name</td>
             <td className="px-4 py-0.5">Customer id</td>
           </tr>

@@ -11,10 +11,11 @@ import {
   DoubleLeftOutlined,
   PlusSquareFilled,
   CloseCircleOutlined,
+  ImportOutlined,
 } from "@ant-design/icons";
 import { changeMode } from "../../../store/themeModeSlice";
 export default function RightNavBar(props) {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const isAlert = useSelector((state) => state.unSave.isWarn);
   const isDark = useSelector((state) => state.setDark.isDark);
   const dispatch = useDispatch();
@@ -93,12 +94,12 @@ export default function RightNavBar(props) {
                       isActive ? activeStyle : Style
                     }
                   >
-                    <div className=" p-4 m-1  rounded-3xl group-hover:rounded-md group-hover:bg-amber-500 bg-gray-700  animation center_a_div shadow-2xl group-hover:shadow-sky-200">
+                    <div className=" p-4 m-1  rounded-3xl group-hover:rounded-md group-hover:bg-amber-500 bg-gray-700  animation center_a_div shadow-2xl group-hover:shadow-sky-200 ">
                       {data.icon}
                     </div>
 
                     {!isHide ? (
-                      <p className="xl:block hidden text-white font-bold ">
+                      <p className="xl:block hidden text-white group-hover:text-amber-400 font-bold group-hover:underline underline-offset-1 ">
                         {data.name}
                       </p>
                     ) : (
@@ -176,11 +177,14 @@ export default function RightNavBar(props) {
             }
           >
             <h2 className="text-white">Hello there</h2>
-            <span className="text-white">Admin</span>
+            <span className="text-white">{user.email}</span>
             <button
-              className="w-fit py-0.5 shadow-2xl shadow-black "
+              className="outLineButton center_a_div gap-1 group"
               onClick={logout}
             >
+              <div className="center_a_div hidden group-hover:flex">
+                <ImportOutlined />
+              </div>
               Logout
             </button>
           </div>
