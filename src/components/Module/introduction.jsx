@@ -42,8 +42,8 @@ export default function introduction() {
            <td>Axios</td>
          </tr>
           <tr>
-            <td>File</td>
-            <td>Firebase</td>
+            <td>Storge</td>
+            <td>FireStorge</td>
           </tr>
         </tbody>
       </table>

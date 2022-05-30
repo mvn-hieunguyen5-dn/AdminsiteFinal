@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { turnOffWarn } from "../../../store/unSaveClice";
 import useAuth from "../../../hooks/useAuth";
+import { Switch } from "antd";
 import {
   HomeFilled,
   CalendarFilled,
@@ -11,14 +12,19 @@ import {
   PlusSquareFilled,
   CloseCircleOutlined,
 } from "@ant-design/icons";
+import { changeMode } from "../../../store/themeModeSlice";
 export default function RightNavBar(props) {
   const { logout } = useAuth();
   const isAlert = useSelector((state) => state.unSave.isWarn);
+  const isDark = useSelector((state) => state.setDark.isDark);
   const dispatch = useDispatch();
   const [isHide, setHide] = useState(false);
   const activeStyle =
-    "text-amber-500 font-bold p-2  flex items-center gap-2 group xl:w-full";
+    "text-amber-500 font-bold p-2  flex items-center gap-2 group xl:w-full selected";
   const Style = "p-2 flex items-center gap-2 group text-white xl:w-full";
+  const switchMode = (checked) => {
+    dispatch(changeMode());
+  };
   const Route = [
     {
       id: 0,
@@ -50,8 +56,8 @@ export default function RightNavBar(props) {
     },
   ];
   return (
-    <div className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation w-fit  ">
-      <div className=" h-full  flex xl:flex-col flex-row p-1 xl:p-4">
+    <div className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation fixed xl:relative xl:w-fit w-full bottom-0 shadow-lg bg-gray-900 dark:bg-slate-900 border-t-2 xl:border-none z-50">
+      <div className=" h-full  flex xl:flex-col flex-row p-1 xl:p-4 justify-center xl:justify-start ">
         <div className="center_a_div">
           <button
             onClick={() => {
@@ -76,7 +82,7 @@ export default function RightNavBar(props) {
           </button>
         </div>
         <div className="text-base text-left xl:mt-10 flex xl:flex-row ">
-          <ul className=" flex xl:flex-col flex-row xl:divide-y-2 divide-gray-800 divide-solid  xl:w-full">
+          <ul className=" flex xl:flex-col flex-row xl:divide-y-2 divide-gray-800  divide-solid  xl:w-full">
             {Route.map((data) => {
               return (
                 <li className="flex-grow flex relative" key={data.id}>
@@ -87,12 +93,14 @@ export default function RightNavBar(props) {
                       isActive ? activeStyle : Style
                     }
                   >
-                    <div className=" p-4 m-1  rounded-3xl group-hover:rounded-md group-hover:bg-amber-500 animation center_a_div shadow-2xl drop-shadow-2xl  group-hover:shadow-sky-200">
+                    <div className=" p-4 m-1  rounded-3xl group-hover:rounded-md group-hover:bg-amber-500 bg-gray-700  animation center_a_div shadow-2xl group-hover:shadow-sky-200">
                       {data.icon}
                     </div>
 
                     {!isHide ? (
-                      <p className="xl:block hidden  font-bold ">{data.name}</p>
+                      <p className="xl:block hidden text-white font-bold ">
+                        {data.name}
+                      </p>
                     ) : (
                       ""
                     )}
@@ -111,7 +119,16 @@ export default function RightNavBar(props) {
             })}
           </ul>
         </div>
-        <div className="flex-grow"></div>
+        <div className="center_a_div text-2xl">
+          <Switch
+            onChange={switchMode}
+            defaultChecked={isDark}
+            id="darkmode"
+            checkedChildren={<p>Dark</p>}
+            unCheckedChildren={<p className="text-slate-700">Light</p>}
+          />
+        </div>
+        <div className="xl:flex-grow"></div>
         <div className="flex items-center gap-3 justify-center xl:mb-5 ">
           <div className="relative group z-50 xl:mt-0">
             <img
@@ -124,15 +141,7 @@ export default function RightNavBar(props) {
                   : "  rounded-full xl:relative  xl:h-24 xl:w-24 ")
               }
             />
-            <span
-              className={
-                isAlert
-                  ? "sidebar-tooltip group-hover:scale-100 bg-red-500 center_a_div "
-                  : " hidden "
-              }
-            >
-              You have unsave progress
-            </span>
+
             <div
               className={
                 "h-5 w-5 absolute  -top-1 -right-1 z-50 group " +
@@ -140,12 +149,21 @@ export default function RightNavBar(props) {
               }
             >
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-              <span
-                className="relative inline-flex rounded-full h-5 w-5 bg-red-500 center_a_div text-red-400 group-hover:text-white "
+              <button
+                className="relative inline-flex rounded-full h-5 w-5 bg-red-500 center_a_div text-red-400 group-hover:text-white group hover:line-through"
                 onClick={() => dispatch(turnOffWarn())}
               >
                 <CloseCircleOutlined />
-              </span>
+                <span
+                  className={
+                    isAlert
+                      ? "sidebar-tooltip group-hover:scale-100 bg-red-500 center_a_div group-active:line-through decoration-2 decoration-red-500 underline-offset-1 text-lg "
+                      : " hidden "
+                  }
+                >
+                  You have unsave progress
+                </span>
+              </button>
             </div>
           </div>
 
@@ -159,7 +177,10 @@ export default function RightNavBar(props) {
           >
             <h2 className="text-white">Hello there</h2>
             <span className="text-white">Admin</span>
-            <button className="w-fit py-0.5 shadow-2xl shadow-black " onClick={logout}>
+            <button
+              className="w-fit py-0.5 shadow-2xl shadow-black "
+              onClick={logout}
+            >
               Logout
             </button>
           </div>

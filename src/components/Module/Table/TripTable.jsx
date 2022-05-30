@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table, Space, message } from "antd";
 import { Popconfirm } from "antd";
-import { apiDeleteTripById } from "../../core/api/Trip/Trip.api";
+import { apiDeleteTripById } from "../../../core/api/Trip/Trip.api";
 import { Link } from "react-router-dom";
-import {apiGetTrip} from "../../core/api/Trip/Trip.api"
-export default function TripTable() {
+import { apiGetTrip } from "../../../core/api/Trip/Trip.api";
+export default function TripTable({ openDetail }) {
   const [TripData, setTripData] = useState([]);
   useEffect(() => {
     async function fetchMyAPI() {
@@ -99,7 +99,12 @@ export default function TripTable() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <p className="text-green-600 func_a">Detail</p>
+          <p
+            className="text-green-600 func_a"
+            onClick={() => openDetail(record)}
+          >
+            Detail
+          </p>
           <Link
             to={"/trip/addTrip/" + record.id}
             className="text-yellow-600 func_a"
@@ -122,9 +127,20 @@ export default function TripTable() {
   return (
     <div className="mt-5 z-20">
       <Table dataSource={TripData} columns={columns} rowKey="id" />;
-      <blockquote>
-        Quản lý của một công ty tổ chuwcsl lữ hành, xác định phòng ban và người
-        chịu trách nghiệm tổ chức kiêm luôn phân chia loại dịch vụ cung cấp
+      <blockquote className="text-xl">
+        Quản lý của một công ty tổ chức lữ hành,{" "}
+        <span className="underline decoration-green-600 underline-offset-2">
+          xác định phòng ban
+        </span>{" "}
+        và người{" "}
+        <span className="underline decoration-gray-600 underline-offset-2">
+          chịu trách nghiệm tổ chức
+        </span>{" "}
+        kiêm luôn phân chia{" "}
+        <span className="underline decoration-cyan-700 underline-offset-2">
+        loại dịch vụ
+        </span>{" "}
+        cung cấp
       </blockquote>
     </div>
   );
