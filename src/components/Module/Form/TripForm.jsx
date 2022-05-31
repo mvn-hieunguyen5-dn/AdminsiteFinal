@@ -1,4 +1,4 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -140,10 +140,13 @@ export default function TripForm({ id }) {
     }
 
     setLoad(false);
-    if (res.status === 200) {
+    if (res.status === 200 || res.status === 201) {
+      console.log(res);
       message.success(res.statusText, 2.5);
       navigate(-1);
     } else {
+      console.log("res");
+      console.log(res);
       message.error("Create fail, something went wrong");
     }
     setDafault();
@@ -274,9 +277,7 @@ export default function TripForm({ id }) {
           </Button>
         </Form.Item>
       </Form>
-      <div className="h-10">
-
-      </div>
+      <div className="h-10"></div>
     </div>
   );
 }
