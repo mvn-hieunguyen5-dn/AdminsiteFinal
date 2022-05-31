@@ -2,6 +2,7 @@ import React from "react";
 import RightNavBar from "../../components/layout/RightNavBar/RightNavBar";
 import { Routes, Route } from "react-router-dom";
 import FaQ from "./FaQ";
+import TestEditor from "./TestEditor";
 import TripManagement from "./TripManagement";
 import NotFound from "../404";
 import { useSelector } from "react-redux";
@@ -19,7 +20,9 @@ export default function Index() {
       <div className="h-full p-10 flex-grow  bg-zinc-50 dark:bg-gray-800  overflow-y-auto w-full x">
         <Routes>
           <Route path="/trip/*" element={<TripManagement />} />
+          <Route path="/testEditor" element={<TestEditor />} />
           <Route path="/" element={<FaQ />} />
+
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>

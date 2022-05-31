@@ -57,7 +57,7 @@ export default function RightNavBar(props) {
     },
   ];
   return (
-    <div className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation fixed xl:relative xl:w-fit w-full bottom-0 shadow-lg bg-gray-900 dark:bg-slate-900 border-t-2 xl:border-none z-50">
+    <header className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation fixed xl:relative xl:w-fit w-full bottom-0 shadow-lg bg-gradient-to-br from-slate-900  to-zinc-900 dark:from-slate-900 border-t-2 xl:border-none z-50">
       <div className=" h-full  flex xl:flex-col flex-row p-1 xl:p-4 justify-center xl:justify-start ">
         <div className="center_a_div">
           <button
@@ -120,17 +120,21 @@ export default function RightNavBar(props) {
             })}
           </ul>
         </div>
-        <div className="center_a_div text-2xl">
+        <div className="center_a_div text-2xl group">
           <Switch
             onChange={switchMode}
             defaultChecked={isDark}
             id="darkmode"
-            checkedChildren={<p>Dark</p>}
+            checkedChildren={
+              <p className="group">
+                Dark
+              </p>
+            }
             unCheckedChildren={<p className="text-slate-700">Light</p>}
           />
         </div>
         <div className="xl:flex-grow"></div>
-        <div className="flex items-center gap-3 justify-center xl:mb-5 ">
+        <div className="flex items-center gap-3 justify-center xl:mb-5 px-2 py-2 my-1 rounded-md bg-gradient-to-r from-gray-800  to-slate-800 ">
           <div className="relative group z-50 xl:mt-0">
             <img
               srcSet="https://variety.com/wp-content/uploads/2022/02/Screen-Shot-2022-05-09-at-10.04.13-AM.png?w=681&h=383&crop=1"
@@ -190,6 +194,6 @@ export default function RightNavBar(props) {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

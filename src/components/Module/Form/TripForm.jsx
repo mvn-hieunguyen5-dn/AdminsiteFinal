@@ -156,7 +156,7 @@ export default function TripForm({ id }) {
   return (
     <div className="overflow-x-auto 2xl:px-52 ">
       {/* <button onClick={() => navigate("/trip/addTrip/11")}>Test</button> */}
-      <blockquote>{id ? " Edit item id:" + id : "Create new Tip"}</blockquote>
+      <blockquote>{id ? " Edit item id:" + id : "Create new Trip"}</blockquote>
       {isAlert ? (
         <blockquote className="bg-red-100 ">
           You have a unsave work{" "}
