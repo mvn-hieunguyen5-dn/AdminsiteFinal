@@ -4,7 +4,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Progress } from "antd";
 export default function UploadImgForm(props) {
   // const [file, getFile] = useState(null);
-  const [progress, setProgress] = useState(props.img);
+  const [progress, setProgress] = useState(0);
 
   // Create a reference to 'images/mountains.jpg'
 
