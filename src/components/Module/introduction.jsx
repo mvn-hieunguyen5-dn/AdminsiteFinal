@@ -8,15 +8,15 @@ export default function introduction() {
       <h2 className=" underline-offset-1 underline decoration-stone-600">This is h2</h2>
       <h3>This is h3</h3>
       <h4>This is h4</h4>
-      <table className="text-left border-2 border-gray-600 ">
+      <table className="table-auto border-2 text-base">
         <thead>
           <tr className="bg-gray-800">
             <td colSpan={2}>
-              <h3 className="text-white px-5">Libary used</h3>
+              <h3 className="text-white">Libary used</h3>
             </td>
           </tr>
         </thead>
-        <tbody className="divide-y-2 divide-slate-700">
+        <tbody className="divide-y-2">
           <tr>
             <td>React</td>
             <td>v18</td>

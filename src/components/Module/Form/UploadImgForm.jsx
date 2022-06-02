@@ -56,8 +56,15 @@ export default function UploadImgForm(props) {
       />
       {/* <button onClick={updateToUpload}></button> */}
 
-      {props.img ?   <img src={props.img} alt="" className="h-72 w-full object-cover" /> :'' }
-       <Progress
+      {props.img ? (
+        <img src={props.img} alt="" className="h-72 w-full object-cover" />
+      ) : (
+        ""
+      )}
+      {progress === 100 || progress === 0 ? (
+        ""
+      ) : (
+        <Progress
           strokeColor={{
             from: "#108ee9",
             to: "#87d068",
@@ -65,6 +72,7 @@ export default function UploadImgForm(props) {
           percent={progress}
           status="active"
         />
+      )}
     </div>
   );
 }
