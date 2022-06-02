@@ -145,10 +145,10 @@ export default function RightNavBar(props) {
               srcSet="https://variety.com/wp-content/uploads/2022/02/Screen-Shot-2022-05-09-at-10.04.13-AM.png?w=681&h=383&crop=1"
               alt=""
               className={
-                "object-cover animation  rounded-2xl xl:shadow-none shadow-xl shadow-slate-500 z-auto h-12 w-12  " +
+                "object-cover animation rounded-full  xl:shadow-none shadow-xl shadow-slate-500 z-auto h-12 w-12  " +
                 (isHide
-                  ? " xl:rounded-full xl:relative "
-                  : "  rounded-full xl:relative  xl:h-24 xl:w-24 ")
+                  ? " xl:relative "
+                  : "  xl:relative  xl:h-24 xl:w-24 ")
               }
             />
 
