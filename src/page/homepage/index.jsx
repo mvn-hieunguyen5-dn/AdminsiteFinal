@@ -17,9 +17,9 @@ export default function Index() {
       }
     >
       <RightNavBar />
-      <div className="h-full p-10 flex-grow  bg-zinc-50 dark:bg-gray-800  overflow-y-auto w-full x">
+      <div className="h-full p-10 flex-grow  bg-zinc-50 dark:bg-gray-800  overflow-y-auto w-full x scroll-smooth">
         <Routes>
-          <Route path="/trip/*" element={<TripManagement />} />
+          <Route path="/trip-management/*" element={<TripManagement />} />
           <Route path="/testEditor" element={<TestEditor />} />
           <Route path="/" element={<FaQ />} />
 

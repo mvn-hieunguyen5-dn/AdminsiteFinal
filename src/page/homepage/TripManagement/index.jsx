@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+
 import TripTable from "../../../components/Module/Table/TripTable";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
 import { Routes, Route } from "react-router-dom";
 import AddTrip from "./AddTrip";
-import { PlusSquareFilled } from "@ant-design/icons";
+import NotFound from "../../404";
 import DetailsTrip from "../../../components/Module/View/DetailsTrip";
 export default function Index() {
   const [visible, setVisible] = useState(false);
@@ -16,28 +16,14 @@ export default function Index() {
   };
   return (
     <div className="text-left">
-      <Link to="/trip">
-        <h1 >Trip management</h1>
-      </Link>
-      <nav>
-        <NavLink
-          to="/trip/addTrip"
-          end
-          className={({ isActive }) =>
-            "center_a_div w-fit gap-2" +( isActive ? " hidden " : " BlackButton ")
-          }
-        >
-          <PlusSquareFilled />
-          Add new Trip
-        </NavLink>
-      </nav>
       <Routes>
         <Route
           path="/"
           element={<TripTable openDetail={(id) => openDetail(id)} />}
         />
-        <Route path="/addTrip" element={<AddTrip />} />
-        <Route path="/addTrip/:id" element={<AddTrip />} />
+        <Route path="/create-new" element={<AddTrip />} />
+        <Route path="/:id/update" element={<AddTrip />} />
+        <Route path="/:id" element={<NotFound />} />
       </Routes>
       <Modal
         title="Details"
@@ -46,6 +32,14 @@ export default function Index() {
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         width={1000}
+        footer={
+          <Button
+            type="primary"
+            onClick={()=>setVisible(false)}
+          >
+            Close
+          </Button>
+        }
       >
         <DetailsTrip data={data} />
       </Modal>

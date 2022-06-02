@@ -19,7 +19,6 @@ export default function App() {
           ) : (
             <>
               <Route path="*" element={<Auth />} />
-              {/* <Route path="*" element={<NotFound />} /> */}
             </>
           )}
         </Routes>

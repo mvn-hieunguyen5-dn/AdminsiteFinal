@@ -9,7 +9,7 @@ export default function LoginForm() {
     if (values.username === "admin" && values.password === "admin") {
       await login(values.username, values.password);
       window.location.reload();
-      setMSG("Account is verified, good to see again")
+      setMSG("Account is verified, good to see again");
     } else {
       setMSG("Wrong username or password !!");
     }
@@ -38,7 +38,6 @@ export default function LoginForm() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Password"
           name="password"
@@ -46,22 +45,12 @@ export default function LoginForm() {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item label="">
-          <span className="text-red-500 text-right">{msg}</span>
-        </Form.Item>
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-        </Form.Item>
+        </Form.Item>{" "}
+        <span className="text-red-500 text-right text-sm">{msg}</span>
       </Form>
     </>
   );

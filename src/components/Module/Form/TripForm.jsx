@@ -273,7 +273,7 @@ export default function TripForm({ id }) {
 
         <Form.Item label="">
           <Button type="primary" htmlType="submit" loading={isLoad}>
-            {id ? "Edit" : "Create"}
+            {id ? "Update" : "Create new"}
           </Button>
         </Form.Item>
       </Form>

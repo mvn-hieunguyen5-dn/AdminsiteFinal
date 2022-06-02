@@ -20,6 +20,7 @@ export default function RightNavBar(props) {
   const isDark = useSelector((state) => state.setDark.isDark);
   const dispatch = useDispatch();
   const [isHide, setHide] = useState(false);
+  const [isShowHidden, ShowHidden] = useState(false);
   const activeStyle =
     "text-amber-500 font-bold p-2  flex items-center gap-2 group xl:w-full selected";
   const Style = "p-2 flex items-center gap-2 group text-white xl:w-full";
@@ -37,14 +38,14 @@ export default function RightNavBar(props) {
     {
       id: 1,
       name: "Trip management",
-      route: "/trip",
+      route: "/trip-management",
       icon: <CalendarFilled />,
       end: true,
     },
     {
       id: 3,
       name: "Add Trip",
-      route: "/trip/addTrip",
+      route: "/trip-management/create-new",
       icon: <PlusSquareFilled />,
       end: false,
     },
@@ -57,7 +58,9 @@ export default function RightNavBar(props) {
     },
   ];
   return (
-    <header className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation fixed xl:relative xl:w-fit w-full bottom-0 shadow-lg bg-gradient-to-br from-slate-900  to-zinc-900 dark:from-slate-900 border-t-2 xl:border-none z-50">
+    <header className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation fixed xl:relative xl:w-fit w-full bottom-0 shadow-lg bg-gradient-to-br from-slate-900  to-zinc-900 dark:from-slate-900 border-t-2 xl:border-none z-50"
+    onDoubleClick={()=>ShowHidden(!isShowHidden)}
+    >
       <div className=" h-full  flex xl:flex-col flex-row p-1 xl:p-4 justify-center xl:justify-start ">
         <div className="center_a_div">
           <button
@@ -94,7 +97,7 @@ export default function RightNavBar(props) {
                       isActive ? activeStyle : Style
                     }
                   >
-                    <div className=" p-4 m-1  rounded-3xl group-hover:rounded-md group-hover:bg-amber-500 bg-gray-700  animation center_a_div shadow-2xl group-hover:shadow-sky-200 ">
+                    <div className=" p-4 m-1  rounded-3xl group-hover:rounded-2xl group-hover:bg-gray-600 group-active:bg-amber-400 bg-gray-700  animation center_a_div shadow-2xl group-hover:shadow-sky-200 group-hover:text-white ">
                       {data.icon}
                     </div>
 
@@ -120,21 +123,22 @@ export default function RightNavBar(props) {
             })}
           </ul>
         </div>
-        <div className="center_a_div text-2xl group">
-          <Switch
-            onChange={switchMode}
-            defaultChecked={isDark}
-            id="darkmode"
-            checkedChildren={
-              <p className="group">
-                Dark
-              </p>
-            }
-            unCheckedChildren={<p className="text-slate-700">Light</p>}
-          />
-        </div>
+        {isShowHidden ? (
+          <div className="center_a_div text-2xl group">
+            <Switch
+              onChange={switchMode}
+              defaultChecked={isDark}
+              id="darkmode"
+              checkedChildren={<p className="group">Dark</p>}
+              unCheckedChildren={<p className="text-slate-700">Light</p>}
+            />
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="xl:flex-grow"></div>
-        <div className="flex items-center gap-3 justify-center xl:mb-5 px-2 py-2 my-1 rounded-md bg-gradient-to-r from-gray-800  to-slate-800 ">
+        <div className="flex items-center gap-3 justify-center xl:mb-5 px-2 py-2 my-1 rounded-md bg-gradient-to-r from-gray-800  to-slate-800 hover:to-slate-700 ">
           <div className="relative group z-50 xl:mt-0">
             <img
               srcSet="https://variety.com/wp-content/uploads/2022/02/Screen-Shot-2022-05-09-at-10.04.13-AM.png?w=681&h=383&crop=1"
@@ -180,8 +184,8 @@ export default function RightNavBar(props) {
                 : " scale-100 hidden  xl:flex flex-col text-left pr-10 ")
             }
           >
-            <h2 className="text-white">Hello there</h2>
-            <span className="text-white">{user.email}</span>
+            <h3 className="text-white">Hello there</h3>
+            <span className="text-white py-0.5 px-1">{user.email}</span>
             <button
               className="outLineButton center_a_div gap-1 group"
               onClick={logout}

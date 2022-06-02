@@ -3,7 +3,9 @@ import { Table, Space, message } from "antd";
 import { Popconfirm } from "antd";
 import { apiDeleteTripById } from "../../../core/api/Trip/Trip.api";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { apiGetTrip } from "../../../core/api/Trip/Trip.api";
+import { PlusOutlined } from "@ant-design/icons";
 export default function TripTable({ openDetail }) {
   const [TripData, setTripData] = useState([]);
   useEffect(() => {
@@ -79,18 +81,18 @@ export default function TripTable({ openDetail }) {
       title: "Image",
       key: "image",
       render: (_, record) => (
-        <div className="static  w-full h-full ">
+        <>
           {record.image ? (
             <img
               src={record.image}
-              className="table-picture hover:scale-300 z-40 hover:z-50"
+              className="w-20 h-10 object-cover"
               alt=""
               srcSet=""
             />
           ) : (
             ""
           )}
-        </div>
+        </>
       ),
       responsive: ["xl"],
     },
@@ -106,7 +108,7 @@ export default function TripTable({ openDetail }) {
             Detail
           </p>
           <Link
-            to={"/trip/addTrip/" + record.id}
+            to={`/trip-management/${record.id}/update`}
             className="text-yellow-600 func_a"
           >
             Edit
@@ -126,6 +128,22 @@ export default function TripTable({ openDetail }) {
   ];
   return (
     <div className="mt-5 z-20">
+      <h1>Trip management</h1>
+      <nav className="w-full flex justify-end">
+        <NavLink
+          to="/trip-management/create-new"
+          end
+          className={({ isActive }) =>
+            "center_a_div w-fit gap-2" +
+            (isActive
+              ? " hidden "
+              : " OutLineButton py-3 font-semibold hover:BlackButton  ")
+          }
+        >
+          <PlusOutlined />
+          Add new Trip
+        </NavLink>
+      </nav>
       <Table dataSource={TripData} columns={columns} rowKey="id" />;
       <blockquote className="text-xl">
         Quản lý của một công ty tổ chức lữ hành,{" "}
@@ -138,7 +156,7 @@ export default function TripTable({ openDetail }) {
         </span>{" "}
         kiêm luôn phân chia{" "}
         <span className="underline decoration-cyan-700 underline-offset-2">
-        loại dịch vụ
+          loại dịch vụ
         </span>{" "}
         cung cấp
       </blockquote>

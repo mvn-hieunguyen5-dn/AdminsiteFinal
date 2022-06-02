@@ -5,7 +5,6 @@ export default function AddTrip() {
   const { id } = useParams();
   return (
     <>
-    
       <TripForm id={id} />
     </>
   );
