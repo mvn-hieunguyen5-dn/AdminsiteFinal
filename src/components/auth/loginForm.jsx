@@ -25,7 +25,7 @@ export default function LoginForm() {
         name="basic"
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
+        initialValues={{ username: "admin", password:"admin" }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
