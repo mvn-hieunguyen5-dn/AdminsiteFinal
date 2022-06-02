@@ -93,6 +93,10 @@ export default function TripForm({ id }) {
   const onValuesChange = (items, allitem) => {
     if (id) dispatch(updateUnSaveForm({ ...allitem, id: id }));
     else dispatch(updateUnSaveForm(allitem));
+    window.addEventListener("beforeunload", (ev) => {
+      ev.preventDefault();
+      return (ev.returnValue = "Are you sure you want to close?");
+    });
   };
   const fillUnsaveData = () => {
     console.log(unsaveData);

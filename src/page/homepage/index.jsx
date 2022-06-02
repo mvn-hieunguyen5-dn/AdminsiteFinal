@@ -25,6 +25,9 @@ export default function Index() {
 
           <Route path="/*" element={<NotFound />} />
         </Routes>
+        <div className="xl:hidden h-10">
+
+        </div>
       </div>
     </div>
   );

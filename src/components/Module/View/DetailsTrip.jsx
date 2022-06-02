@@ -10,7 +10,7 @@ export default function DetailsTrip({ data }) {
         srcSet=""
         className="w-full object-cover object-center h-72"
       />
-      <h2 className="underline">{data.name}</h2>
+      <h2 className="">{data.name}</h2>
 
       <table className="w-full text-base xl:text-xl">
         <thead>

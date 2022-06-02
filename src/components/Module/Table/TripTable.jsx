@@ -134,10 +134,10 @@ export default function TripTable({ openDetail }) {
           to="/trip-management/create-new"
           end
           className={({ isActive }) =>
-            "center_a_div w-fit gap-2" +
+            "center_a_div w-fit gap-2 " +
             (isActive
               ? " hidden "
-              : " OutLineButton py-3 font-semibold hover:BlackButton  ")
+              : " OutLineButton py-3 font-semibold hover:BlackButton active:text-amber-400  ")
           }
         >
           <PlusOutlined />

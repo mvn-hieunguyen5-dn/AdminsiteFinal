@@ -22,8 +22,8 @@ export default function RightNavBar(props) {
   const [isHide, setHide] = useState(false);
   const [isShowHidden, ShowHidden] = useState(false);
   const activeStyle =
-    "text-amber-500 font-bold p-2  flex items-center gap-2 group xl:w-full selected";
-  const Style = "p-2 flex items-center gap-2 group text-white xl:w-full";
+    " font-bold p-2   xl:w-full selected  flex items-center gap-2 group activeNav";
+  const Style = "p-2  xl:w-full  flex items-center gap-2 group nonActiveNav";
   const switchMode = (checked) => {
     dispatch(changeMode());
   };
@@ -58,8 +58,9 @@ export default function RightNavBar(props) {
     },
   ];
   return (
-    <header className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation fixed xl:relative xl:w-fit w-full bottom-0 shadow-lg bg-gradient-to-br from-slate-900  to-zinc-900 dark:from-slate-900 border-t-2 xl:border-none z-50"
-    onDoubleClick={()=>ShowHidden(!isShowHidden)}
+    <header
+      className="h-fit xl:h-full xl:my-5  font-medium flex-shrink-0 animation fixed xl:relative xl:w-fit w-full bottom-0 shadow-lg bg-gradient-to-br from-slate-900  to-zinc-900 dark:from-slate-900 border-t-2 xl:border-none z-50"
+      onDoubleClick={() => ShowHidden(!isShowHidden)}
     >
       <div className=" h-full  flex xl:flex-col flex-row p-1 xl:p-4 justify-center xl:justify-start ">
         <div className="center_a_div">
@@ -93,16 +94,16 @@ export default function RightNavBar(props) {
                   <NavLink
                     to={data.route}
                     end={data.end}
-                    className={({ isActive }) =>
-                      isActive ? activeStyle : Style
+                    className={
+                      ({ isActive }) => ( isActive ? activeStyle : Style)
                     }
                   >
-                    <div className=" p-4 m-1  rounded-3xl group-hover:rounded-2xl group-hover:bg-gray-600 group-active:bg-amber-400 bg-gray-700  animation center_a_div shadow-2xl group-hover:shadow-sky-200 group-hover:text-white ">
+                    <div className=" p-4 m-1   rounded-3xl group-hover:rounded-2xl group-hover:bg-gray-600 group-active:bg-amber-400 bg-gray-700  animation center_a_div shadow-2xl group-hover:shadow-sky-200 group-hover:text-white ">
                       {data.icon}
                     </div>
 
                     {!isHide ? (
-                      <p className="xl:block hidden text-white group-hover:text-amber-400 font-bold group-hover:underline underline-offset-1 ">
+                      <p className="xl:block hidden   font-bold group-hover:underline underline-offset-1 ">
                         {data.name}
                       </p>
                     ) : (
@@ -130,7 +131,7 @@ export default function RightNavBar(props) {
               defaultChecked={isDark}
               id="darkmode"
               checkedChildren={<p className="group">Dark</p>}
-              unCheckedChildren={<p className="text-slate-700">Light</p>}
+              unCheckedChildren={<p className="text-slate-50">Light</p>}
             />
           </div>
         ) : (

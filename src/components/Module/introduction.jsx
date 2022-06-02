@@ -48,24 +48,24 @@ export default function introduction() {
         </tbody>
       </table>
       <h2>Color board</h2>
-      <div className="flex items-center text-center gap-10 font-semibold text-white flex-wrap">
-        <div className="center_a_div h-40 w-40 bg-amber-500 rounded-xl shadow-xl hover:scale-110 animation hover:shadow-slate-400">
+      <div className="flex items-center text-center font-semibold text-white flex-wrap -space-x-10 ">
+        <div className=" center_a_div h-48 w-48 bg-amber-500 rounded-full shadow-xl hover:scale-110 animation hover:shadow-slate-h-480 z-10">
           Hight light <br></br>
           #bg-amber-500
         </div>
-        <div className="center_a_div h-40 w-40  rounded-xl shadow-xl bg-slate-100 text-black hover:scale-110 animation">
+        <div className=" center_a_div h-48 w-48  rounded-full shadow-xl bg-slate-100 text-black hover:scale-110 animation z-20">
           Background 1 <br />
           #bg-slate-900 <br />
           Font white <br></br>
           #text-slate-900
         </div>
-        <div className="center_a_div h-40 w-40  rounded-xl shadow-xl bg-slate-200 text-black hover:scale-110 animation">
+        <div className=" center_a_div h-48 w-48  rounded-full shadow-xl bg-slate-200 text-black hover:scale-110 animation z-30">
           Background 2 <br />
           #bg-slate-100 <br />
           Font black <br></br>
           #text-black"
         </div>
-        <div className="center_a_div h-40 w-40 bg-slate-800 rounded-xl text-white shadow-xl hover:shadow-gray-400  hover:scale-110 animation">
+        <div className=" center_a_div h-48 w-48 bg-slate-800 rounded-full text-white shadow-xl hover:shadow-gray-400  hover:scale-110 animation z-40">
           Background strong <br></br>
           #bg-slate-500
         </div>
